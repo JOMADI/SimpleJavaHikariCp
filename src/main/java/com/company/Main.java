@@ -52,24 +52,25 @@ public class Main {
                 System.out.println(p.toString());
             }
 
-            Pets one = new Pets();
-            one.setBirth("1998-09-09");
-            one.setName("Jaci");
-            one.setOwnwer("David");
-            String SQL_Insert = "INSERT INTO cats(birth, name, owner) VALUES (?, ?, ?)";
-            PreparedStatement ps = connection.prepareStatement(SQL_Insert);
-            ps.setString(1, one.getBirth());
-            ps.setString(2, one.getName());
-            ps.setString(3, one.getOwnwer());
-            ps.executeUpdate();
-            pets.add(one);
+            Pets p = insertData(connection);
+            pets.add(p);
 
         }catch(SQLException ig){
             JOptionPane.showMessageDialog(null, "Connection Timed Out!!" + ig.getMessage());
         }
     }
 
-    private static void insertData(){
-        final String SQL_Insert = "insert into cats(birth, name, owner) values(?, ?, ?)";
+    private static Pets insertData(Connection connection) throws SQLException{
+        Pets one = new Pets();
+        one.setBirth("1998-09-09");
+        one.setName("Jaci");
+        one.setOwnwer("David");
+        String SQL_Insert = "INSERT INTO cats(birth, name, owner) VALUES (?, ?, ?)";
+        PreparedStatement ps = connection.prepareStatement(SQL_Insert);
+        ps.setString(1, one.getBirth());
+        ps.setString(2, one.getName());
+        ps.setString(3, one.getOwnwer());
+        ps.executeUpdate();
+        return one;
     }
 }
